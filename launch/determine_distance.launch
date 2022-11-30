@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="pcl_test" name="set_distance" type="set_distance.py" output="screen"/>
+</launch>

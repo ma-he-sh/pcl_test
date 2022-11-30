@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="pcl_test" name="pointcloud" type="pointcloud.py" output="screen"/>
+</launch>

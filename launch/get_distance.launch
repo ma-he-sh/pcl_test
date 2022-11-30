@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="pcl_test" name="get_distance" type="get_distance.py" output="screen"/>
+</launch>

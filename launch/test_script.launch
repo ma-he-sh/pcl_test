@@ -1,0 +1,25 @@
+<launch>
+    <param name="leaf_size" value="0.01" />
+    <!-- how close to camera :: in meters-->
+    <param name="min_depth" value="0.3" />
+    <!-- how far from camera :: in meters -->
+    <param name="max_depth" value="0.85" />
+    <!-- compensate :: ignore threshold-->
+    <param name="compensate" value="0.345" />
+    <!-- allow debug -->
+    <param name="debug" value="false" />
+
+
+    <!-- global map params :: for remote map :: size in meters -->
+    <param name="map_size_width" value="200" />
+    <param name="map_size_height" value="200" />
+    <param name="map_matrix_size" value="10" />
+
+
+    <include file="$(find pcl_test)/launch/realsense_cam.launch"/>
+    <!-- sets the distance threshold of pointclouds observed by drone -->
+    <node pkg="pcl_test" name="set_distance" type="set_distance.py" output="screen"/>
+    <!-- marked the obstacles in the scene -->
+    <node pkg="pcl_test" name="objectdetection" type="objectdetection" output="screen"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find pcl_test)/rviz/tracking.rviz" required="true"/>
+</launch>
