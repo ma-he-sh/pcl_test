@@ -138,6 +138,8 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr &cloud_data) {
             point4.y = point_cloudPtr->points[*p_it].y;
             point4.z = 0;
 
+            //std::cout << k << "\n";
+
             // in observable space
             if( point.z >= minDepth && point.z <= maxDepth ) {
                 point.r = colorIndex;
@@ -152,7 +154,9 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr &cloud_data) {
                 point4.g = 0;
                 point4.b = 255;
 
+                //if( k > 0 ) {
                 all_objects_flattened->push_back(point4);
+                //}
             } else {
                 point.r = 0;
                 point.g = 0;
@@ -198,11 +202,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr &cloud_data) {
     pcl_conversions::fromPCL(downsampleCloud3, voxel3);
 
     all_objects_flattened->header.frame_id = point_cloudPtr->header.frame_id;
-    if (all_objects_flattened->size()) {
-        pcl::toPCLPointCloud2(*all_objects_flattened, downsampleCloud4);
-    } else {
-        pcl::toPCLPointCloud2(*point_cloudPtr, downsampleCloud4);
-    }
+    pcl::toPCLPointCloud2(*all_objects_flattened, downsampleCloud4);
 
     // convert pcl to pointcloud
     pcl_conversions::fromPCL(downsampleCloud4, voxel4);
